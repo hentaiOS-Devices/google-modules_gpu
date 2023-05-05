@@ -2543,7 +2543,7 @@ exit:
 const struct vm_operations_struct kbase_vm_ops = {
 	.open  = kbase_cpu_vm_open,
 	.close = kbase_cpu_vm_close,
-	.split = kbase_cpu_vm_split,
+	.may_split = kbase_cpu_vm_split,
 	.fault = kbase_cpu_vm_fault
 };
 
@@ -3476,11 +3476,7 @@ exit:
 static const struct vm_operations_struct kbase_csf_user_io_pages_vm_ops = {
 	.open = kbase_csf_user_io_pages_vm_open,
 	.close = kbase_csf_user_io_pages_vm_close,
-#if KERNEL_VERSION(5, 11, 0) <= LINUX_VERSION_CODE
 	.may_split = kbase_csf_user_io_pages_vm_split,
-#else
-	.split = kbase_csf_user_io_pages_vm_split,
-#endif
 	.mremap = kbase_csf_user_io_pages_vm_mremap,
 	.fault = kbase_csf_user_io_pages_vm_fault
 };
